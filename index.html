@@ -157,6 +157,12 @@
                 float: right;
                 margin-right: 20px;
             }
+            @media (max-width: 750px) {
+                #game {
+                    width: 90%;
+                    margin: auto;
+                }
+            }
         </style>
         <script>
             var player = "cross";
@@ -196,7 +202,7 @@
     <body>
         <div id="game">
             <div id="gameControls">
-                <a id="player1" href="">1</a><a id="player2" href="">2</a><a id="newGame" href="">+</a>
+                <a id="player1">1</a><a id="player2">2</a><a id="newGame">+</a>
             </div>
             <div id="gameTitleHolder">
                 <h2>Game - </h2>
