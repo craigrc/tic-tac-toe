@@ -1,0 +1,267 @@
+<html>
+    <head>
+        <style>
+            #game {
+                background-color: white;
+                width: 400px;
+                border-radius: 10%;
+                position: absolute;
+                left: 50%;
+                top: 50%;
+                -webkit-transform: translate(-50%, -50%);
+                transform: translate(-50%, -50%);
+                background-color: #303030;
+            }
+            * {
+                margin: 0px;
+                position: relative;
+                background-color: #303030;
+            }
+            body {
+                background-color: #ffffff;
+            }
+            #board {
+                width: 300px;
+                height: 300px;
+                display: flex;
+                flex-wrap: wrap;
+                margin: auto;
+                margin-top: 20px;
+                margin-bottom: 20px;
+            }   
+            
+            .tile {
+                position: relative;
+                height: 30%;
+                width: 30%;
+                padding: 1%;
+            }
+            
+            .naught {
+                position: relative;
+                width: 100%;
+                height: 100%;
+            }
+            
+            .naught .outer {
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                border-radius: 50%;
+                background-color: #ffffff;
+                transition: background-color .5s ease-in-out;
+            }
+
+            .naught .inner {
+                position: absolute;
+                width: 50%;
+                height: 50%;
+                border-radius: 50%;
+                left: 25%;
+                top: 25%;
+                background-color: #303030;
+                transition: background-color .5s ease-in-out;
+            }
+            .cross {
+                position: relative;
+                width: 90%;
+                height: 90%;
+                padding: 3px;
+                transition: background-color .2s ease-in-out;
+            }
+            .cross .outer {
+                position: absolute;
+                width: 33%;
+                height: 100%;
+                transform: rotate(45deg);
+                background-color: #1f1e1e;
+                left: 33%;
+                transition: background-color .2s ease-in-out;
+            }
+            
+            .cross .inner {
+                position: absolute;
+                width: 33%;
+                height: 100%;
+                left: 33%;
+                transform: rotate(-45deg);
+                background-color: #1f1e1e;
+                transition: background-color .2s ease-in-out;
+            }`
+            
+            .point {
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                transition: background-color .2s ease-in-out;
+            }
+            
+            .point .outer {
+                background-color: white;
+                width: 20%;
+                height: 20%;
+                margin: auto;
+                border-radius: 50%;
+                margin-top: 40%;
+                transition: background-color .2s ease-in-out;
+            }
+            
+            .point .outer:hover {
+                background-color: #292929;
+                transition: background-color .2s ease-in-out;
+            }
+            #gameTitleHolder {
+                text-align: center;
+                margin: 20px;
+            }
+            h2 {
+                display: inline;
+                font-weight: bolder;
+                color: white;
+                text-align: center;
+            }
+            h3 {
+                display: inline;
+                margin-left: 40px;
+                margin-right: 40px;
+                color: white;
+                font-weight: bolder;
+                
+            }
+            #oScore {
+                float: right;
+            }
+            #xScore {
+                float: left;
+            }
+            #gameControls {
+                margin-top: 20px;
+                margin-left: 7px;
+                margin-right: 7px;
+                border-bottom: solid white;
+            }
+            a {
+                color: white;
+                margin-left: 20px;
+                margin-bottom: 10px;
+                text-decoration: none;
+                font-weight: bolder;
+            }
+            
+            a:hover {
+                color: #1f1e1e;
+                transition: color .2s ease-in-out;
+            }
+            
+            #newGame {
+                float: right;
+                margin-right: 20px;
+            }
+        </style>
+        <script>
+            var player = "cross";
+            
+            function placeTile(tileNo, newShape) {
+                var tile = document.getElementById(tileNo);
+                var shape = tile.getElementsByTagName("div")[0].className;
+                var div = tile.getElementsByTagName("div")[0];
+                if (shape == "point") {
+                    if (newShape == "naught") {
+                        div.getElementsByTagName("div")[0].style.backgroundColor = "#303030";
+                        div.className = newShape;
+                        div.getElementsByTagName("div")[0].style.backgroundColor = "#ffffff";                       
+                    }
+                    else {
+                        div.getElementsByTagName("div")[0].style.backgroundColor = "#303030";
+                        div.getElementsByTagName("div")[1].style.backgroundColor = "#303030";
+                        div.className = newShape;
+                        div.getElementsByTagName("div")[0].style.backgroundColor = "#1f1e1e";
+                        div.getElementsByTagName("div")[1].style.backgroundColor = "#1f1e1e";                        
+                    }
+                }
+            }
+            
+            function tileClick(point) {
+                var tileNo = point.parentElement.id;
+                placeTile(tileNo, player);
+                if (player == "naught") {
+                    player = "cross";
+                }
+                else {
+                    player = "naught";
+                }
+            }
+        </script>
+    </head>
+    <body>
+        <div id="game">
+            <div id="gameControls">
+                <a id="player1" href="">1</a><a id="player2" href="">2</a><a id="newGame" href="">+</a>
+            </div>
+            <div id="gameTitleHolder">
+                <h2>Game - </h2>
+                <h2>0</h2>
+            </div>
+            <div id="scoreHolder">
+                <h3 id="xScore">X - O</h3>
+                <h3 id="oScore">O - 0</h3>
+            </div>
+            <div id="board">
+                <div class="tile" id="0">
+                    <div class="point" onclick="tileClick(this)">
+                        <div class="outer"></div>
+                        <div class="inner"></div>
+                    </div>               
+                </div>
+                <div class="tile" id="1">
+                    <div class="point" onclick="tileClick(this)">
+                        <div class="outer"></div>
+                        <div class="inner"></div>
+                    </div>               
+                </div>
+                <div class="tile" id="2">
+                    <div class="point" onclick="tileClick(this)">
+                        <div class="outer"></div>
+                        <div class="inner"></div>
+                    </div> 
+                </div>
+                <div class="tile" id="3">
+                    <div class="point" onclick="tileClick(this)">
+                        <div class="outer"></div>
+                        <div class="inner"></div>
+                    </div> 
+                </div>            
+                <div class="tile" id="4">
+                    <div class="point" onclick="tileClick(this)">
+                        <div class="outer"></div>
+                        <div class="inner"></div>
+                    </div> 
+                </div>
+                <div class="tile" id="5">
+                    <div class="point" onclick="tileClick(this)">
+                        <div class="outer"></div>
+                        <div class="inner"></div>
+                    </div>          
+                </div>
+                <div class="tile" id="6">
+                    <div class="point" onclick="tileClick(this)">
+                        <div class="outer"></div>
+                        <div class="inner"></div>
+                    </div>             
+                </div>           
+                <div class="tile" id="7">
+                    <div class="point" onclick="tileClick(this)">
+                        <div class="outer"></div>
+                        <div class="inner"></div>
+                    </div>           
+                </div>
+                <div class="tile" id="8">
+                    <div class="point" onclick="tileClick(this)">
+                        <div class="outer"></div>
+                        <div class="inner"></div>
+                    </div>                 
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
